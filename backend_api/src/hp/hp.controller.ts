@@ -7,7 +7,7 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { CharacterService } from 'src/character/character.service';
+import { CharacterService } from '../character/character.service';
 import { HpResponseDto } from './dto/HpResponse.dto';
 import { HpService } from './hp.service';
 import { DamageDto } from './dto/damage.dto';

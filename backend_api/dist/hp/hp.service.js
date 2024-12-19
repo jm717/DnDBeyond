@@ -67,9 +67,9 @@ let HpService = class HpService {
         }
         if (!character.tempHitPoints ||
             character.tempHitPoints < additionalPoints) {
-            character.hitPoints = additionalPoints;
+            character.tempHitPoints = additionalPoints;
+            await this.characterService.setCharacter(characterName, character);
         }
-        await this.characterService.setCharacter(characterName, character);
         return character.tempHitPoints;
     }
 };

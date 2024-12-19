@@ -1,4 +1,4 @@
-import { CharacterService } from 'src/character/character.service';
+import { CharacterService } from '../character/character.service';
 import { DamageDto } from './dto/damage.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
@@ -19,7 +19,6 @@ export class HpService {
     const { damageType } = damageDto;
     let damageDealt = damageDto.damageAmount;
 
-    // Check if character defense has Immunity or Resistance
     if (character.defenses) {
       const defenses = character.defenses.filter(
         (defense) => defense.type.toLowerCase() === damageType.toLowerCase(),
@@ -91,10 +90,9 @@ export class HpService {
       !character.tempHitPoints ||
       character.tempHitPoints < additionalPoints
     ) {
-      character.hitPoints = additionalPoints;
+      character.tempHitPoints = additionalPoints;
+      await this.characterService.setCharacter(characterName, character);
     }
-
-    await this.characterService.setCharacter(characterName, character);
 
     return character.tempHitPoints;
   }
